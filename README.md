@@ -8,7 +8,7 @@
 - I am taking STATS 220 because I want to learn how to manage data efficiently.
 - I am interested in learning about coding in R.
 
-A meme that captures how I currently feel about my university studies is ![Cinema](https://c.tenor.com/lq8NhrocQFMAAAAC/tenor.gif)
+A meme that captures how I currently feel about my university studies is ![](https://c.tenor.com/lq8NhrocQFMAAAAC/tenor.gif)
 
 ### Some things I like
 
@@ -18,7 +18,7 @@ A meme that captures how I currently feel about my university studies is ![Cinem
    - Some of my favourites include [*Bleach*](https://anilist.co/anime/269/BLEACH), [*AOT*](https://anilist.co/anime/16498/Attack-on-Titan/), [*JJK*](https://anilist.co/anime/113415/JUJUTSU-KAISEN/)
    - I am currently watching [*Magi*](https://anilist.co/anime/14513/Magi-The-Labyrinth-of-Magic/)
   
-![Smurf](https://c.tenor.com/7fX12aujiNsAAAAd/tenor.gif)
+![](https://c.tenor.com/7fX12aujiNsAAAAd/tenor.gif)
 
 
 
