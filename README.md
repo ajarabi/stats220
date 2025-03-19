@@ -18,7 +18,7 @@ A meme that captures how I currently feel about my university studies is
    - Some of my favourites include [*Bleach*](https://anilist.co/anime/269/BLEACH), [*AOT*](https://anilist.co/anime/16498/Attack-on-Titan/), [*JJK*](https://anilist.co/anime/113415/JUJUTSU-KAISEN/)
    - I am currently watching [*Magi*](https://anilist.co/anime/14513/Magi-The-Labyrinth-of-Magic/)
 
-![](https://c.tenor.com/hvh0ucb7o-4AAAAd/tenor.gif)
+![](https://c.tenor.com/WJVixVNziwAAAAAd/tenor.gif)
 
 
 
