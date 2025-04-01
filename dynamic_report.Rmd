@@ -9,19 +9,142 @@ knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE, error=FALSE)
 ```
 
 ```{css}
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+
+body {
+  background-color: #25262E;
+  color: #E9E9E9;
+}
+
+h1, h2, h3 {
+  text-align: center;
+}
+
+h1 {
+  font-weight: 700;
+  margin-bottom: 20px;
+  font-size: 100px !important;
+  letter-spacing: 4px;
+  font-family: 'Bebas Neue';
+}
+
+h2, h3 {
+  font-family: "Rubik", sans-serif;
+  font-size: 50px;
+  font-weight: 700;
+}
+
+p {
+  font-size: 20px;
+  font-family: "Rubik", sans-serif;
+}
+
+img {
+  border: 5px solid #404040;
+}
+
+ul {
+  font-family: "Rubik", sans-serif;
+}
+
+.plot {
+  text-align: center;
+}
 
 ```
 
-## What's going on with this data?
+## Analysing My YouTube Viewing Habits
 
-You need to change the contents of this Rmd! Replace the R code and markdown give below in this template document.
+This report analyses my personal YouTube viewing habits based on tracked data over the past week. The data was collected by manually logging each video I watched, including information about:
 
-```{r}
-pets <- c("cat", "dog", "turtle", "rabbit")
-best_pet <- pets[1]
+<ul>
+  <li>Video categories (some videos may belong to multiple categories)</li>
+  <li>How I discovered each video</li>
+  <li>My enjoyment rating (scale of 1-10)</li>
+  <li>When I watched the video</li>
+  <li>The length of each video in minutes</li>
+</ul>
 
+```{r data-preparation}
+# Reading CSV data
+logged_data <- read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vSBvWeoajBgTZ_JLkowqy5_j4VMGj0l6JjPTL9LtB1vRjQgFvIeVBNUMscVXEOFffUA3uNZwBboVTm-/pub?output=csv")
+
+# Renaming columns 
+latest_data <- logged_data %>%
+  rename(
+    video_length = 2,
+    categories = 3,
+    discovery_method = 4,
+    time_watched = 5,
+    rating = 6
+  )
+
+# Calculate summaries
+mean_video_length <- mean(latest_data$video_length, na.rm = TRUE)
+mean_rating <- mean(latest_data$rating, na.rm = TRUE)
+total_videos <- nrow(latest_data)
 ```
 
-The best pet to have is a `r best_pet` of course!
+### Most Watched Categories
 
-![](https://c.tenor.com/-qBsG1HwR4oAAAAC/tenor.gif)
+The chart below shows the distribution of video categories in my viewing history. This identifies the categories I watch most.
+
+<div class="plot">
+```{r categories-plot}
+# Creating Category Bar Chart
+latest_data %>%
+  separate_rows(categories, sep = ", ") %>%
+  count(categories) %>%
+  ggplot(aes(y = reorder(categories, n), x = n)) +
+  geom_col(fill = "#FF0000") +
+  labs(title = "Distribution of YouTube Video Categories Watched", 
+       subtitle = paste("Based on", total_videos, "videos tracked"),
+       x = "Number of Videos", 
+       y = NULL) +
+  theme_minimal()
+```
+</div>
+
+<div>
+Based on my viewing data, I've watched a total of `r total_videos` videos across the past week. The chart reveals that `r latest_data %>% separate_rows(categories, sep = ", ") %>% count(categories) %>% arrange(desc(n)) %>% slice(1) %>% pull(categories)` is my most frequently watched category, closely followed by `r latest_data %>% separate_rows(categories, sep = ", ") %>% count(categories) %>% arrange(desc(n)) %>% slice(2) %>% pull(categories)` and `r latest_data %>% separate_rows(categories, sep = ", ") %>% count(categories) %>% arrange(desc(n)) %>% slice(3) %>% pull(categories)`.
+</div>
+
+### How I Discover Videos
+
+This visualization shows the different ways I discover videos on YouTube, which provides insight into my browsing habits.
+
+<div class="plot">
+```{r discovery-plot}
+# Creating Discovery Bar Chart
+latest_data %>%
+  count(discovery_method) %>%
+  ggplot(aes(x = reorder(discovery_method, n), y = n)) +
+  geom_col(fill = "#FF0000") +
+  labs(title = "How I Discover YouTube Videos", 
+       x = NULL, 
+       y = "Number of Videos") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+</div>
+
+<div>
+By a large margin I most commonly discover videos through `r latest_data %>% count(discovery_method) %>% arrange(desc(n)) %>% slice(1) %>% pull(discovery_method)`, which accounts for `r round(100 * (latest_data %>% count(discovery_method) %>% arrange(desc(n)) %>% slice(1) %>% pull(n) / total_videos), 1)`% of my video discoveries.
+</div>
+
+### Video Length and Engagement
+
+```{r viewing-stats}
+# Calculate additional stats
+max_rating <- max(latest_data$rating, na.rm = TRUE)
+min_rating <- min(latest_data$rating, na.rm = TRUE)
+```
+
+<div>
+The average length of videos I watch is **`r round(mean_video_length, 1)` minutes**, This suggests I tend to prefer longer content on YouTube.
+</div>
+
+<div>
+My average rating for the videos I watch is **`r round(mean_rating, 1)` out of 10**. My ratings range from `r min_rating` to `r max_rating`, indicating I'm generally satisfied with the content I choose to watch.
+</div>
+
