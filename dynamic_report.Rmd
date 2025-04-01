@@ -65,7 +65,7 @@ This report analyses my personal YouTube viewing habits based on tracked data ov
   <li>The length of each video in minutes</li>
 </ul>
 
-```{r data-preparation}
+```{r}
 # Reading CSV data
 logged_data <- read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vSBvWeoajBgTZ_JLkowqy5_j4VMGj0l6JjPTL9LtB1vRjQgFvIeVBNUMscVXEOFffUA3uNZwBboVTm-/pub?output=csv")
 
@@ -90,7 +90,7 @@ total_videos <- nrow(latest_data)
 The chart below shows the distribution of video categories in my viewing history. This identifies the categories I watch most.
 
 <div class="plot">
-```{r categories-plot}
+```{r}
 # Creating Category Bar Chart
 latest_data %>%
   separate_rows(categories, sep = ", ") %>%
@@ -114,7 +114,7 @@ Based on my viewing data, I've watched a total of `r total_videos` videos across
 This visualization shows the different ways I discover videos on YouTube, which provides insight into my browsing habits.
 
 <div class="plot">
-```{r discovery-plot}
+```{r}
 # Creating Discovery Bar Chart
 latest_data %>%
   count(discovery_method) %>%
@@ -134,7 +134,7 @@ By a large margin I most commonly discover videos through `r latest_data %>% cou
 
 ### Video Length and Engagement
 
-```{r viewing-stats}
+```{r}
 # Calculate additional stats
 max_rating <- max(latest_data$rating, na.rm = TRUE)
 min_rating <- min(latest_data$rating, na.rm = TRUE)
