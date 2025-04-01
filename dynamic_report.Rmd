@@ -120,7 +120,7 @@ latest_data %>%
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
 
-By a large margin, I most commonly discover videos through **`r latest_data %>% count(discovery_method) %>% arrange(desc(n)) %>% slice(1) %>% pull(discovery_method)`**, which accounts for **`r round(100 * (latest_data %>% count(discovery_method) %>% arrange(desc(n)) %>% slice(1) %>% pull(n) / total_videos), 1)`%** of my video discoveries.
+By a large margin, videos **`r latest_data %>% count(discovery_method) %>% arrange(desc(n)) %>% slice(1) %>% pull(discovery_method)`** is the most common way I discover YouTube videos, which accounts for **`r round(100 * (latest_data %>% count(discovery_method) %>% arrange(desc(n)) %>% slice(1) %>% pull(n) / total_videos), 1)`%** of my video discoveries.
 
 ### Video Length and Engagement
 
