@@ -130,9 +130,9 @@ max_rating <- max(latest_data$rating, na.rm = TRUE)
 min_rating <- min(latest_data$rating, na.rm = TRUE)
 ```
 
-The average length of videos I watch is **`r ifelse(mean_video_length < 15, paste(round(mean_video_length, 1), "minutes. This suggests I tend to enjoy shorter content on YouTube."), paste(round(mean_video_length, 1), "minutes. This suggests I tend to prefer longer content on YouTube"))`**.
+The average length of videos I watch is **`r ifelse(mean_video_length < 16, paste(round(mean_video_length, 1), "minutes. This suggests I tend to enjoy shorter content on YouTube."), paste(round(mean_video_length, 1), "minutes. This suggests I tend to prefer longer content on YouTube"))`**.
 
-My average rating for the videos I watch is **`r ifelse(mean_rating < 5, paste(round(mean_rating, 1), "out of 10. This suggests I am typically not satisfied with the content I choose to watch."), paste(round(mean_rating, 1), "out of 10. This implies I am generally satisfied with the content I watch"))`**.
+My average rating for the videos I watch is **`r ifelse(mean_rating < 6, paste(round(mean_rating, 1), "out of 10. This suggests I am typically not satisfied with the content I choose to watch."), paste(round(mean_rating, 1), "out of 10. This implies I am generally satisfied with the content I watch"))`**.
 
 ### Mean Engagement Levels by Discovery Method
 
