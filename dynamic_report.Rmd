@@ -133,3 +133,29 @@ min_rating <- min(latest_data$rating, na.rm = TRUE)
 The average length of videos I watch is **`r round(mean_video_length, 1)` minutes**. This suggests I tend to prefer longer content on YouTube.
 
 My average rating for the videos I watch is **`r round(mean_rating, 1)` out of 10**. My ratings range from **`r min_rating`** to **`r max_rating`**, indicating I'm generally satisfied with the content I choose to watch.
+
+### Mean Engagement Levels by Discovery Method
+
+```{r}
+# Calculate mean engagement level for each discovery method
+mean_engagement_by_method <- latest_data %>%
+  group_by(discovery_method) %>%
+  summarise(mean_rating = mean(rating, na.rm = TRUE)) %>%
+  arrange(desc(mean_rating))
+```
+
+The plot below summarizes the average engagement level (rating) for each discovery method. This helps to understand whether my satisfaction with the videos correlates with how I discovered them.
+
+```{r}
+# Creating a Bar Chart for Mean Engagement by Discovery Method
+mean_engagement_by_method %>%
+  ggplot(aes(x = reorder(discovery_method, mean_rating), y = mean_rating)) +
+  geom_col(fill = "#FF0000") +
+  labs(title = "Average Engagement by Discovery Method", 
+       x = "Discovery Method", 
+       y = "Average Rating") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+
