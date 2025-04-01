@@ -96,7 +96,6 @@ latest_data %>%
   ggplot(aes(y = reorder(categories, n), x = n)) +
   geom_col(fill = "#FF0000") +
   labs(title = "Distribution of YouTube Video Categories Watched", 
-       subtitle = paste("Based on", total_videos, "videos tracked"),
        x = "Number of Videos", 
        y = NULL) +
   theme_minimal()
