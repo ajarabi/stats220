@@ -6,6 +6,7 @@ output: html_fragment
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE, error=FALSE)
 library(tidyverse)
+library(magick)
 
 ```
 
@@ -101,6 +102,8 @@ latest_data %>%
   theme_minimal()
 ```
 
+
+
 Based on my viewing data, I've watched a total of **`r total_videos`** videos across the past week. The chart reveals that **`r latest_data %>% separate_rows(categories, sep = ", ") %>% count(categories) %>% arrange(desc(n)) %>% slice(1) %>% pull(categories)`** is my most frequently watched category, closely followed by **`r latest_data %>% separate_rows(categories, sep = ", ") %>% count(categories) %>% arrange(desc(n)) %>% slice(2) %>% pull(categories)`** and **`r latest_data %>% separate_rows(categories, sep = ", ") %>% count(categories) %>% arrange(desc(n)) %>% slice(3) %>% pull(categories)`**.
 
 ### How I Discover Videos
@@ -157,5 +160,69 @@ mean_engagement_by_method %>%
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
+
+### Average Ratings For Categories By Video Length
+
+Below is a chart visualizing the average ratings of categories, grouped by video length. This gives insight in how ratings for categories vary across video lengths.
+
+```{r}
+# Creating Category-based Video Length Categories
+latest_data <- latest_data %>%
+  mutate(video_length_category = case_when(
+    video_length < 10 ~ "Short (<10 min)",
+    video_length >= 10 & video_length < 20 ~ "Medium (10-20 min)",
+    video_length >= 20 ~ "Long (>20 min)"
+  ))
+
+# Function to generate the bar plot for a given video length category
+generate_bar_plot <- function(length_category) {
+  # Filter data for the current video length category
+  length_data <- latest_data %>%
+    separate_rows(categories, sep = ", ") %>%
+    filter(video_length_category == length_category)
+  
+  # Calculate average rating by category for the length category
+  avg_rating_length <- length_data %>%
+    group_by(categories) %>%
+    summarise(mean_rating = mean(rating, na.rm = TRUE))
+  
+  # Generate the plot
+  plot <- ggplot(avg_rating_length, aes(x = reorder(categories, mean_rating), y = mean_rating)) +
+    geom_col(fill = "#FF0000") +
+    labs(title = paste("Average Rating by Category -", length_category, "Videos"),
+         x = "Category", y = "Average Rating") +
+    theme_minimal() +
+    theme(axis.text.x = element_text(angle = 45, hjust = 1),
+          plot.background = element_rect(fill = "white", color = "white"))
+  
+  plot_file <- tempfile(fileext = ".png")
+  ggsave(plot_file, plot, width = 8, height = 6, dpi = 100)
+  
+  return(plot_file)
+}
+
+# List of video length categories to loop through
+length_categories <- c("Short (<10 min)", "Medium (10-20 min)", "Long (>20 min)")
+
+# Generate a list of image files (saved plots) for each video length category
+plot_files <- lapply(length_categories, function(category) {
+  generate_bar_plot(category)
+})
+
+# Read the images into magick
+frames <- lapply(plot_files, image_read)
+
+# Animate the frames
+animated_gif <- image_animate(image_join(frames), fps = 0.5)
+
+# Display GIF
+animated_gif
+```
+
+Based on the video length categories, we can see the following:
+
+- *Short (<10 min)* videos tend to have an average rating of *`r latest_data %>% filter(video_length_category == "Short (<10 min)") %>% summarize(avg_rating = round(mean(rating, na.rm = TRUE), 2)) %>% pull(avg_rating)`*.
+- *Medium (10-20 min)* videos show an average rating of *`r latest_data %>% filter(video_length_category == "Medium (10-20 min)") %>% summarize(avg_rating = round(mean(rating, na.rm = TRUE), 2)) %>% pull(avg_rating)`*.
+- *Long (>20 min)* videos tend to have an average rating of *`r latest_data %>% filter(video_length_category == "Long (>20 min)") %>% summarize(avg_rating = round(mean(rating, na.rm = TRUE), 2)) %>% pull(avg_rating)`*.
 
 
