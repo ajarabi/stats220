@@ -219,7 +219,7 @@ animated_gif <- image_animate(image_join(frames), fps = 0.5)
 animated_gif
 ```
 
-Based on the video length categories, we can see the following:
+Based on the plot above, we can see the following:
 
 - *Short (<10 min)* videos tend to have an average rating of *`r latest_data %>% filter(video_length_category == "Short (<10 min)") %>% summarize(avg_rating = round(mean(rating, na.rm = TRUE), 2)) %>% pull(avg_rating)`*.
 - *Medium (10-20 min)* videos show an average rating of *`r latest_data %>% filter(video_length_category == "Medium (10-20 min)") %>% summarize(avg_rating = round(mean(rating, na.rm = TRUE), 2)) %>% pull(avg_rating)`*.
