@@ -16,7 +16,7 @@ A meme that captures how I currently feel about my university studies is
    - My favourite album right now gotta be [**More Chaos**](https://open.spotify.com/album/1TiWFnZwyZ152viq7v9C31) by *Ken Carson*
 2. **Anime**
    - Some of my favourites include [*Bleach*](https://anilist.co/anime/269/BLEACH), [*AOT*](https://anilist.co/anime/16498/Attack-on-Titan/), [*JJK*](https://anilist.co/anime/113415/JUJUTSU-KAISEN/)
-   - I am currently watching [*Mob Psycho 100*](https://anilist.co/anime/14513/Magi-The-Labyrinth-of-Magic/)
+   - I am currently watching [*Mob Psycho 100*](https://anilist.co/anime/21507/Mob-Psycho-100/)
 
 ![](https://c.tenor.com/WJVixVNziwAAAAAd/tenor.gif)
 
